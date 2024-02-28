@@ -1,0 +1,19 @@
+import { mode } from "@chakra-ui/theme-tools";
+
+export const styles = {
+  global: (props) => ({
+    "html, body": {
+      bg: mode(`gray.200`, `gray.800`)(props),
+      h: "full",
+      w: "full",
+    },
+    "#root": {
+      bg: "transparent",
+      w: "inherit",
+      h: "inherit",
+      p: [2, 2, 8],
+    },
+  }),
+};
+
+export default styles;
