@@ -19,6 +19,66 @@ const Resources = () => {
     { firstName: "Fergus", lastName: "Miles", type: "PM" },
     { firstName: "Aeron", lastName: "Caponpon", type: "DEV" },
     { firstName: "Elijah", lastName: "Regidor", type: "DEV" },
+    // {
+    //   firstName: "Nayeon",
+    //   middleName: "Santos",
+    //   lastName: "Im",
+    //   type: "DEV",
+    // },
+    // {
+    //   firstName: "Jeongyeon",
+    //   middleName: "",
+    //   lastName: "Yoo",
+    //   type: "QA",
+    // },
+    // {
+    //   firstName: "Momo",
+    //   middleName: "Lopez",
+    //   lastName: "Hirai",
+    //   type: "PM",
+    // },
+    // {
+    //   firstName: "Sana",
+    //   middleName: null,
+    //   lastName: "Minatozaki",
+    //   type: "DEV",
+    // },
+    // {
+    //   firstName: "Jihyo",
+    //   middleName: "",
+    //   lastName: "Park",
+    //   type: "QA",
+    // },
+    // {
+    //   firstName: "Mina",
+    //   middleName: "Gonzales",
+    //   lastName: "Myoui",
+    //   type: "PM",
+    // },
+    // {
+    //   firstName: "Dahyun",
+    //   middleName: "Ramos",
+    //   lastName: "Kim",
+    //   type: "DEV",
+    // },
+    // {
+    //   firstName: "Chaeyoung",
+    //   middleName: "Torres",
+    //   lastName: "Son",
+    //   type: "QA",
+    // },
+    // {
+    //   firstName: "Tzuyu",
+    //   middleName: "Santos",
+    //   lastName: "Chou",
+    //   type: "PM",
+    // },
+    // {
+    //   firstName: "Jisoo",
+    //   middleName: "",
+    //   lastName: "Choi",
+    //   type: "DEV",
+    // },
   ];
 
   return (
@@ -42,7 +102,10 @@ const Resources = () => {
                 return (
                   <Tr key={`resource-${resourceIndex}`}>
                     <Td>
-                      {resource?.firstName} {resource?.lastName}
+                      {`${resource?.firstName} ${resource?.lastName}`}
+                      {/* {`${resource?.firstName}${
+                        resource?.middleName ? ` ${resource.middleName} ` : ` `
+                      }${resource?.lastName}`} */}
                     </Td>
                     <Td>{resource?.type}</Td>
                   </Tr>
