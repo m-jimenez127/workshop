@@ -1,4 +1,13 @@
-import { Heading, Card, CardBody, Box, Stack, Text } from "@chakra-ui/react";
+import {
+  Heading,
+  Card,
+  CardBody,
+  Stack,
+  Text,
+  SimpleGrid,
+  Center,
+  Box,
+} from "@chakra-ui/react";
 
 const Projects = () => {
   const projectsData = [
@@ -21,29 +30,30 @@ const Projects = () => {
   ];
 
   return (
-    <Box>
-      <Stack spacing={4}>
-        <Heading size="md">Projects</Heading>
-        {projectsData.map((project = {}, projectIndex) => {
-          return (
-            <Card
-              key={`project-${projectIndex}`}
-              w="full"
-              maxW="container.md"
-              mx="auto"
-            >
-              <CardBody>
-                <Stack>
-                  <Heading size="sm">{project?.name}</Heading>
-                  <Text opacity={0.5}>{project?.alias}</Text>
-                  <Text>{project?.description}</Text>
-                </Stack>
-              </CardBody>
-            </Card>
-          );
-        })}
-      </Stack>
-    </Box>
+    <Center>
+      <Box maxW="container.md">
+        <SimpleGrid columns={2} gap={4}>
+          {projectsData.map((project = {}, projectIndex) => {
+            return (
+              <Card
+                key={`project-${projectIndex}`}
+                w="full"
+                maxW="container.md"
+                mx="auto"
+              >
+                <CardBody>
+                  <Stack>
+                    <Heading size="sm">{project?.name}</Heading>
+                    <Text opacity={0.5}>{project?.alias}</Text>
+                    <Text>{project?.description}</Text>
+                  </Stack>
+                </CardBody>
+              </Card>
+            );
+          })}
+        </SimpleGrid>
+      </Box>
+    </Center>
   );
 };
 

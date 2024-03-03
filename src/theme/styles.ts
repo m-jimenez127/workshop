@@ -4,14 +4,16 @@ export const styles = {
   global: (props) => ({
     "html, body": {
       bg: mode(`gray.200`, `gray.800`)(props),
-      h: "fit-content",
+      h: "full",
       w: "full",
-    },
-    "#root": {
-      bg: "transparent",
-      w: "inherit",
-      h: "inherit",
-      p: [2, 2, 8],
+      "div#root": {
+        bg: "transparent",
+        w: "inherit",
+        h: "inherit",
+        minH: "100vh",
+        minW: "100vw",
+        p: [2, 2, 8],
+      },
     },
   }),
 };

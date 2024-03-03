@@ -1,5 +1,4 @@
 import {
-  Heading,
   Table,
   Thead,
   Tbody,
@@ -8,7 +7,6 @@ import {
   Td,
   TableContainer,
   Card,
-  CardHeader,
   CardBody,
 } from "@chakra-ui/react";
 
@@ -83,11 +81,6 @@ const Resources = () => {
 
   return (
     <Card w="full" maxW="container.md" mx="auto">
-      <CardHeader>
-        <Heading size="md" mb={4}>
-          Resources
-        </Heading>
-      </CardHeader>
       <CardBody pt={0} px={0}>
         <TableContainer>
           <Table>
