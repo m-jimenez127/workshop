@@ -4,7 +4,7 @@ export const styles = {
   global: (props) => ({
     "html, body": {
       bg: mode(`gray.200`, `gray.800`)(props),
-      h: "full",
+      h: "fit-content",
       w: "full",
     },
     "#root": {
