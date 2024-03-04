@@ -11,6 +11,8 @@ export const styles = {
       bg: "transparent",
       w: "inherit",
       h: "inherit",
+      minW: "100vw",
+      minH: "100vh",
       p: [2, 2, 8],
     },
   }),
