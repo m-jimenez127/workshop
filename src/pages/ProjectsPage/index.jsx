@@ -14,10 +14,19 @@ const ProjectsPage = () => {
     setAdding(false);
   };
 
+  const handleDeleteProject = (index) => {
+    const newData = [...projectsData];
+    newData.splice(index, 1);
+    setProjectsData(newData);
+    setAdding(false);
+  };
+
   return (
     <Stack>
       <Header isAdding={isAdding} toggleAdd={() => setAdding(!isAdding)} />
-      {!isAdding && <Projects data={projectsData} />}
+      {!isAdding && (
+        <Projects data={projectsData} onDelete={handleDeleteProject} />
+      )}
       {isAdding && (
         <Box w="container.md" mx="auto">
           <Card w="full">

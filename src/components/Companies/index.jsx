@@ -8,10 +8,11 @@ import {
   TableContainer,
   Card,
   CardBody,
+  Button,
 } from "@chakra-ui/react";
 import PropTypes from "prop-types";
 
-const Companies = ({ data = [] }) => {
+const Companies = ({ data = [], onDelete }) => {
   return (
     <Card w="full" maxW="container.md" mx="auto">
       <CardBody pt={0} px={0}>
@@ -24,6 +25,7 @@ const Companies = ({ data = [] }) => {
                 <Th>Contact Person</Th>
                 <Th>Email</Th>
                 <Th>Contact Number</Th>
+                <Th isNumeric>Actions</Th>
               </Tr>
             </Thead>
             <Tbody>
@@ -36,6 +38,16 @@ const Companies = ({ data = [] }) => {
                       <Td>{company?.contactPerson}</Td>
                       <Td>{company?.email}</Td>
                       <Td>{company?.contactNumber}</Td>
+                      <Td isNumeric>
+                        <Button
+                          size="sm"
+                          onClick={() => onDelete(companyIndex)}
+                          variant="outline"
+                          colorScheme="red"
+                        >
+                          Delete
+                        </Button>
+                      </Td>
                     </Tr>
                   );
                 })}
@@ -47,6 +59,6 @@ const Companies = ({ data = [] }) => {
   );
 };
 
-Companies.propTypes = { data: PropTypes.array };
+Companies.propTypes = { data: PropTypes.array, onDelete: PropTypes.func };
 
 export default Companies;

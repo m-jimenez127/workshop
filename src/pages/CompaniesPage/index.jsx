@@ -14,10 +14,19 @@ const CompaniesPage = () => {
     setAdding(false);
   };
 
+  const handleDeleteCompany = (index) => {
+    const newData = [...companiesData];
+    newData.splice(index, 1);
+    setCompaniesData(newData);
+    setAdding(false);
+  };
+
   return (
     <Stack>
       <Header isAdding={isAdding} toggleAdd={() => setAdding(!isAdding)} />
-      {!isAdding && <Companies data={companiesData} />}
+      {!isAdding && (
+        <Companies data={companiesData} onDelete={handleDeleteCompany} />
+      )}
       {isAdding && (
         <Box w="container.md" mx="auto">
           <Card w="full">

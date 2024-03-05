@@ -7,10 +7,13 @@ import {
   SimpleGrid,
   Center,
   Box,
+  HStack,
+  Spacer,
+  Button,
 } from "@chakra-ui/react";
 import PropTypes from "prop-types";
 
-const Projects = ({ data = [] }) => {
+const Projects = ({ data = [], onDelete }) => {
   return (
     <Center>
       <Box maxW="container.md">
@@ -29,6 +32,17 @@ const Projects = ({ data = [] }) => {
                       <Heading size="sm">{project?.name}</Heading>
                       <Text opacity={0.5}>{project?.alias}</Text>
                       <Text>{project?.description}</Text>
+                      <HStack>
+                        <Spacer />
+                        <Button
+                          size="sm"
+                          onClick={() => onDelete(projectIndex)}
+                          variant="outline"
+                          colorScheme="red"
+                        >
+                          Delete
+                        </Button>
+                      </HStack>
                     </Stack>
                   </CardBody>
                 </Card>
@@ -40,6 +54,6 @@ const Projects = ({ data = [] }) => {
   );
 };
 
-Projects.propTypes = { data: PropTypes.array };
+Projects.propTypes = { data: PropTypes.array, onDelete: PropTypes.func };
 
 export default Projects;
