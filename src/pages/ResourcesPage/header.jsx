@@ -1,9 +1,22 @@
-import { Heading } from "@chakra-ui/react";
+import { Button, HStack, Heading, Spacer } from "@chakra-ui/react";
+import PropTypes from "prop-types";
 
-const Header = () => {
-  return <Heading textAlign="center">Resources</Heading>;
+const Header = ({ isAdding = false, toggleAdd }) => {
+  return (
+    <HStack w="container.md" mx="auto">
+      <Heading size="md" textAlign="center">
+        Resources
+      </Heading>
+      <Spacer />
+      {!isAdding && (
+        <Button colorScheme="green" onClick={toggleAdd}>
+          Add Resource
+        </Button>
+      )}
+    </HStack>
+  );
 };
 
-Header.propTypes = {};
+Header.propTypes = { isAdding: PropTypes.bool, toggleAdd: PropTypes.func };
 
 export default Header;
