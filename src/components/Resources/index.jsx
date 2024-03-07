@@ -9,10 +9,11 @@ import {
   Card,
   CardBody,
   Button,
+  ButtonGroup,
 } from "@chakra-ui/react";
 import PropTypes from "prop-types";
 
-const Resources = ({ data = [], onDelete }) => {
+const Resources = ({ data = [], onDelete, onEdit }) => {
   return (
     <Card w="full" maxW="container.md" mx="auto">
       <CardBody pt={0} px={0}>
@@ -39,14 +40,24 @@ const Resources = ({ data = [], onDelete }) => {
                       </Td>
                       <Td>{resource?.type}</Td>
                       <Td isNumeric>
-                        <Button
-                          size="sm"
-                          onClick={() => onDelete(resourceIndex)}
-                          variant="outline"
-                          colorScheme="red"
-                        >
-                          Delete
-                        </Button>
+                        <ButtonGroup>
+                          <Button
+                            size="sm"
+                            onClick={() => onEdit(resource.id)}
+                            variant="outline"
+                            colorScheme="green"
+                          >
+                            Edit
+                          </Button>
+                          <Button
+                            size="sm"
+                            onClick={() => onDelete(resource.id)}
+                            variant="outline"
+                            colorScheme="red"
+                          >
+                            Delete
+                          </Button>
+                        </ButtonGroup>
                       </Td>
                     </Tr>
                   );
@@ -59,6 +70,10 @@ const Resources = ({ data = [], onDelete }) => {
   );
 };
 
-Resources.propTypes = { data: PropTypes.array, onDelete: PropTypes.func };
+Resources.propTypes = {
+  data: PropTypes.array,
+  onDelete: PropTypes.func,
+  onEdit: PropTypes.func,
+};
 
 export default Resources;
