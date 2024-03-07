@@ -9,7 +9,8 @@ import {
   Textarea,
 } from "@chakra-ui/react";
 import PropTypes from "prop-types";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import mockApi from "../../utils/mockApi";
 
 const initialData = {
   name: "",
@@ -17,8 +18,9 @@ const initialData = {
   description: "",
 };
 
-const ProjectForm = ({ onAdd, onCancel }) => {
+const ProjectForm = ({ id = -1, onAdd, onCancel }) => {
   const [formData, setFormData] = useState(initialData);
+  const fetched = useRef(-1);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -35,6 +37,17 @@ const ProjectForm = ({ onAdd, onCancel }) => {
     setFormData(initialData);
     onCancel();
   };
+
+  useEffect(() => {
+    if (id === -1) return;
+    if (fetched.current === id) return;
+    const requestData = mockApi("GET", `/projects/${id}`);
+    const { status = false, data = null } = requestData;
+    if (status) {
+      fetched.current = id;
+      setFormData(data);
+    }
+  }, [id]);
 
   return (
     <form onSubmit={handleAdd}>
@@ -72,7 +85,7 @@ const ProjectForm = ({ onAdd, onCancel }) => {
             Cancel
           </Button>
           <Button type="submit" colorScheme="green">
-            Add Resource
+            {`${id === -1 ? `Add` : `Update`} Project`}
           </Button>
         </HStack>
       </Stack>
@@ -80,6 +93,10 @@ const ProjectForm = ({ onAdd, onCancel }) => {
   );
 };
 
-ProjectForm.propTypes = { onAdd: PropTypes.func, onCancel: PropTypes.func };
+ProjectForm.propTypes = {
+  id: PropTypes.number,
+  onAdd: PropTypes.func,
+  onCancel: PropTypes.func,
+};
 
 export default ProjectForm;
