@@ -4,7 +4,7 @@ import initialCompanies from "./companies.json";
 
 let resources = [...initialResources];
 let projects = [...initialProjects];
-let developers = [...initialCompanies];
+let companies = [...initialCompanies];
 
 const findById = (array, id) => array.find((item) => item.id === id);
 
@@ -72,8 +72,8 @@ const mockApi = (method, endpoint, data = null) => {
             return result;
           }
         }
-        case "developers": {
-          const validData = developers.filter((item) => !item.isDeleted);
+        case "companies": {
+          const validData = companies.filter((item) => !item.isDeleted);
           if (getEndpoint.length === 3) {
             const developerId = parseInt(getEndpoint[2], 10);
             const developer = findById(validData, developerId);
@@ -111,9 +111,9 @@ const mockApi = (method, endpoint, data = null) => {
           result.data = newProject;
           return result;
         }
-        case "/developers": {
-          const newDeveloper = { ...data, id: developers.length + 1 };
-          developers.push(newDeveloper);
+        case "/companies": {
+          const newDeveloper = { ...data, id: companies.length + 1 };
+          companies.push(newDeveloper);
           result.status = true;
           result.data = newDeveloper;
           return result;
@@ -152,8 +152,8 @@ const mockApi = (method, endpoint, data = null) => {
           return result;
         }
 
-        case "developers": {
-          const validData = developers.filter((item) => !item.isDeleted);
+        case "companies": {
+          const validData = companies.filter((item) => !item.isDeleted);
           const developerId = parseInt(putEndpoint[2], 10);
           const developerToUpdate = findById(validData, developerId);
           if (developerToUpdate) {
@@ -200,12 +200,12 @@ const mockApi = (method, endpoint, data = null) => {
           return result;
         }
 
-        case "developers": {
+        case "companies": {
           const developerId = parseInt(deleteEndpoint[2], 10);
-          const index = developers.findIndex((item) => item.id === developerId);
+          const index = companies.findIndex((item) => item.id === developerId);
           if (index !== -1) {
-            developers[index].isDeleted = true;
-            const deletedDeveloper = developers[index];
+            companies[index].isDeleted = true;
+            const deletedDeveloper = companies[index];
             result.status = true;
             result.data = deletedDeveloper;
             return result;

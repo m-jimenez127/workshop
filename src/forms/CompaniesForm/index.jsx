@@ -8,7 +8,8 @@ import {
   Stack,
 } from "@chakra-ui/react";
 import PropTypes from "prop-types";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import mockApi from "../../utils/mockApi";
 
 const initialData = {
   name: "",
@@ -18,8 +19,9 @@ const initialData = {
   contactNumber: "",
 };
 
-const CompaniesForm = ({ onAdd, onCancel }) => {
+const CompaniesForm = ({ id = -1, onAdd, onCancel }) => {
   const [formData, setFormData] = useState(initialData);
+  const fetched = useRef(-1);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -36,6 +38,17 @@ const CompaniesForm = ({ onAdd, onCancel }) => {
     setFormData(initialData);
     onCancel();
   };
+
+  useEffect(() => {
+    if (id === -1) return;
+    if (fetched.current === id) return;
+    const requestData = mockApi("GET", `/companies/${id}`);
+    const { status = false, data = null } = requestData;
+    if (status) {
+      fetched.current = id;
+      setFormData(data);
+    }
+  }, [id]);
 
   return (
     <form onSubmit={handleAdd}>
@@ -99,6 +112,10 @@ const CompaniesForm = ({ onAdd, onCancel }) => {
   );
 };
 
-CompaniesForm.propTypes = { onAdd: PropTypes.func, onCancel: PropTypes.func };
+CompaniesForm.propTypes = {
+  id: PropTypes.number,
+  onAdd: PropTypes.func,
+  onCancel: PropTypes.func,
+};
 
 export default CompaniesForm;
