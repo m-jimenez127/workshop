@@ -15,5 +15,4 @@ export default defineConfig({
     port: 5174,
   },
   plugins: [react()],
-  base: "/workshop/",
 });
