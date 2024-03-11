@@ -1,22 +1,20 @@
 import { Button, HStack, Heading, Spacer } from "@chakra-ui/react";
-import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
-const Header = ({ isAdding = false, toggleAdd }) => {
+const Header = () => {
   return (
     <HStack w="container.md" mx="auto">
       <Heading size="md" textAlign="center">
         Projects
       </Heading>
       <Spacer />
-      {!isAdding && (
-        <Button colorScheme="green" onClick={toggleAdd}>
-          Add Project
-        </Button>
-      )}
+      <Button as={Link} to="/project/add" colorScheme="green">
+        Add Project
+      </Button>
     </HStack>
   );
 };
 
-Header.propTypes = { isAdding: PropTypes.bool, toggleAdd: PropTypes.func };
+Header.propTypes = {};
 
 export default Header;

@@ -6,22 +6,20 @@ import {
   Text,
   SimpleGrid,
   Box,
-  HStack,
-  Spacer,
-  Button,
-  ButtonGroup,
-  CardFooter,
+  LinkBox,
+  LinkOverlay,
 } from "@chakra-ui/react";
 import PropTypes from "prop-types";
 
-const Projects = ({ data = [], onDelete, onEdit }) => {
+const Projects = ({ data = [] }) => {
   return (
     <Box w="container.md" mx="auto">
       <SimpleGrid columns={2} gap={4} w="full">
         {data?.length > 0 &&
           data.map((project = {}, projectIndex) => {
             return (
-              <Card
+              <LinkBox
+                as={Card}
                 key={`project-${projectIndex}`}
                 w="full"
                 maxW="container.md"
@@ -29,35 +27,18 @@ const Projects = ({ data = [], onDelete, onEdit }) => {
               >
                 <CardBody>
                   <Stack>
-                    <Heading size="sm">{project?.name}</Heading>
+                    <Heading
+                      size="sm"
+                      as={LinkOverlay}
+                      href={`/project/${project.id}`}
+                    >
+                      {project?.name}
+                    </Heading>
                     <Text opacity={0.5}>{project?.alias}</Text>
                     <Text>{project?.description}</Text>
                   </Stack>
                 </CardBody>
-                <CardFooter>
-                  <HStack w="full">
-                    <Spacer />
-                    <ButtonGroup>
-                      <Button
-                        size="sm"
-                        onClick={() => onEdit(project?.id)}
-                        variant="outline"
-                        colorScheme="green"
-                      >
-                        Edit
-                      </Button>
-                      <Button
-                        size="sm"
-                        onClick={() => onDelete(project?.id)}
-                        variant="outline"
-                        colorScheme="red"
-                      >
-                        Delete
-                      </Button>
-                    </ButtonGroup>
-                  </HStack>
-                </CardFooter>
-              </Card>
+              </LinkBox>
             );
           })}
       </SimpleGrid>

@@ -30,16 +30,14 @@ const ProjectForm = ({ id = -1, onAdd, onCancel }) => {
   const handleAdd = (e) => {
     e.preventDefault();
     onAdd(formData);
-    setFormData(initialData);
   };
 
   const handleCancel = () => {
-    setFormData(initialData);
     onCancel();
   };
 
   useEffect(() => {
-    if (id === -1) return;
+    if (id === "add") return;
     if (fetched.current === id) return;
     const requestData = mockApi("GET", `/projects/${id}`);
     const { status = false, data = null } = requestData;
@@ -85,7 +83,7 @@ const ProjectForm = ({ id = -1, onAdd, onCancel }) => {
             Cancel
           </Button>
           <Button type="submit" colorScheme="green">
-            {`${id === -1 ? `Add` : `Update`} Project`}
+            {`${id === "add" ? `Add` : `Update`} Project`}
           </Button>
         </HStack>
       </Stack>
