@@ -31,16 +31,14 @@ const CompaniesForm = ({ id = -1, onAdd, onCancel }) => {
   const handleAdd = (e) => {
     e.preventDefault();
     onAdd(formData);
-    setFormData(initialData);
   };
 
   const handleCancel = () => {
-    setFormData(initialData);
     onCancel();
   };
 
   useEffect(() => {
-    if (id === -1) return;
+    if (id === "add") return;
     if (fetched.current === id) return;
     const requestData = mockApi("GET", `/companies/${id}`);
     const { status = false, data = null } = requestData;
@@ -104,7 +102,7 @@ const CompaniesForm = ({ id = -1, onAdd, onCancel }) => {
             Cancel
           </Button>
           <Button type="submit" colorScheme="green">
-            Add Resource
+            {`${id === "add" ? `Add` : `Update`} Company`}
           </Button>
         </HStack>
       </Stack>
