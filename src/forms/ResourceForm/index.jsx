@@ -7,9 +7,9 @@ import {
   Spacer,
   Stack,
 } from "@chakra-ui/react";
-import PropTypes from "prop-types";
 import { useEffect, useRef, useState } from "react";
 import mockApi from "../../utils/mockApi";
+import PropTypes from "prop-types";
 
 const initialData = {
   firstName: "",
@@ -18,9 +18,9 @@ const initialData = {
   type: "",
 };
 
-const ResourceForm = ({ id = -1, onAdd, onCancel }) => {
+const ResourceForm = ({ id = "add", onAdd, onCancel }) => {
   const [formData, setFormData] = useState(initialData);
-  const fetched = useRef(-1);
+  const fetched = useRef("add");
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -30,16 +30,14 @@ const ResourceForm = ({ id = -1, onAdd, onCancel }) => {
   const handleAdd = (e) => {
     e.preventDefault();
     onAdd(formData);
-    setFormData(initialData);
   };
 
   const handleCancel = () => {
-    setFormData(initialData);
     onCancel();
   };
 
   useEffect(() => {
-    if (id === -1) return;
+    if (id === "add") return;
     if (fetched.current === id) return;
     const requestData = mockApi("GET", `/resources/${id}`);
     const { status = false, data = null } = requestData;
@@ -94,7 +92,7 @@ const ResourceForm = ({ id = -1, onAdd, onCancel }) => {
             Cancel
           </Button>
           <Button type="submit" colorScheme="green">
-            {`${id === -1 ? `Add` : `Update`} Resource`}
+            {`${id === "add" ? `Add` : `Update`} Resource`}
           </Button>
         </HStack>
       </Stack>
@@ -103,7 +101,7 @@ const ResourceForm = ({ id = -1, onAdd, onCancel }) => {
 };
 
 ResourceForm.propTypes = {
-  id: PropTypes.number,
+  id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   onAdd: PropTypes.func,
   onCancel: PropTypes.func,
 };

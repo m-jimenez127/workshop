@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import ResourcesPage from "./pages/ResourcesPage";
 import ProjectsPage from "./pages/ProjectsPage";
 import CompaniesPage from "./pages/CompaniesPage";
+import ViewResource from "./pages/ViewResource";
 
 const routes = [
   {
@@ -14,6 +15,7 @@ const routes = [
       { path: "404", element: <ErrorPage /> },
       { path: "", element: <Home /> },
       { path: "resources", element: <ResourcesPage /> },
+      { path: "resource/:id", element: <ViewResource /> },
       { path: "projects", element: <ProjectsPage /> },
       { path: "companies", element: <CompaniesPage /> },
     ],

@@ -8,12 +8,12 @@ import {
   TableContainer,
   Card,
   CardBody,
-  Button,
-  ButtonGroup,
+  LinkBox,
+  LinkOverlay,
 } from "@chakra-ui/react";
 import PropTypes from "prop-types";
 
-const Resources = ({ data = [], onDelete, onEdit }) => {
+const Resources = ({ data = [] }) => {
   return (
     <Card w="full" maxW="container.md" mx="auto">
       <CardBody pt={0} px={0}>
@@ -23,43 +23,24 @@ const Resources = ({ data = [], onDelete, onEdit }) => {
               <Tr>
                 <Th>Name</Th>
                 <Th>Resource Type</Th>
-                <Th isNumeric>Actions</Th>
               </Tr>
             </Thead>
             <Tbody>
               {data?.length > 0 &&
                 data.map((resource = {}, resourceIndex) => {
                   return (
-                    <Tr key={`resource-${resourceIndex}`}>
+                    <LinkBox as={Tr} key={`resource-${resourceIndex}`}>
                       <Td>
-                        {`${resource?.firstName}${
-                          resource?.middleName
-                            ? ` ${resource.middleName} `
-                            : ` `
-                        }${resource?.lastName}`}
+                        <LinkOverlay href={`/resource/${resource?.id}`}>
+                          {`${resource?.firstName}${
+                            resource?.middleName
+                              ? ` ${resource.middleName} `
+                              : ` `
+                          }${resource?.lastName}`}
+                        </LinkOverlay>
                       </Td>
                       <Td>{resource?.type}</Td>
-                      <Td isNumeric>
-                        <ButtonGroup>
-                          <Button
-                            size="sm"
-                            onClick={() => onEdit(resource.id)}
-                            variant="outline"
-                            colorScheme="green"
-                          >
-                            Edit
-                          </Button>
-                          <Button
-                            size="sm"
-                            onClick={() => onDelete(resource.id)}
-                            variant="outline"
-                            colorScheme="red"
-                          >
-                            Delete
-                          </Button>
-                        </ButtonGroup>
-                      </Td>
-                    </Tr>
+                    </LinkBox>
                   );
                 })}
             </Tbody>
