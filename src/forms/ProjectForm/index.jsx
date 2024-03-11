@@ -92,7 +92,7 @@ const ProjectForm = ({ id = -1, onAdd, onCancel }) => {
 };
 
 ProjectForm.propTypes = {
-  id: PropTypes.number,
+  id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   onAdd: PropTypes.func,
   onCancel: PropTypes.func,
 };

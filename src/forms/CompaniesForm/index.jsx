@@ -111,7 +111,7 @@ const CompaniesForm = ({ id = -1, onAdd, onCancel }) => {
 };
 
 CompaniesForm.propTypes = {
-  id: PropTypes.number,
+  id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   onAdd: PropTypes.func,
   onCancel: PropTypes.func,
 };
