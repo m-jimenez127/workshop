@@ -1,6 +1,7 @@
 import {
   Button,
   FormControl,
+  FormErrorMessage,
   FormLabel,
   HStack,
   Input,
@@ -11,6 +12,7 @@ import {
 import PropTypes from "prop-types";
 import { useEffect, useRef, useState } from "react";
 import mockApi from "../../utils/mockApi";
+import { validateProject } from "../../utils/validator";
 
 const initialData = {
   name: "",
@@ -20,6 +22,7 @@ const initialData = {
 
 const ProjectForm = ({ id = -1, onAdd, onCancel }) => {
   const [formData, setFormData] = useState(initialData);
+  const [errors, setErrors] = useState({});
   const fetched = useRef(-1);
 
   const handleInputChange = (e) => {
@@ -29,7 +32,13 @@ const ProjectForm = ({ id = -1, onAdd, onCancel }) => {
 
   const handleAdd = (e) => {
     e.preventDefault();
-    onAdd(formData);
+    const validate = validateProject(formData);
+    if (validate.isValid) {
+      onAdd(formData);
+      setErrors({});
+    } else {
+      setErrors(validate.errors);
+    }
   };
 
   const handleCancel = () => {
@@ -50,7 +59,7 @@ const ProjectForm = ({ id = -1, onAdd, onCancel }) => {
   return (
     <form onSubmit={handleAdd}>
       <Stack>
-        <FormControl>
+        <FormControl isRequired isInvalid={errors?.name}>
           <FormLabel>Name</FormLabel>
           <Input
             type="text"
@@ -58,8 +67,9 @@ const ProjectForm = ({ id = -1, onAdd, onCancel }) => {
             value={formData.name}
             onChange={handleInputChange}
           />
+          <FormErrorMessage>{errors?.name}</FormErrorMessage>
         </FormControl>
-        <FormControl>
+        <FormControl isRequired isInvalid={errors?.alias}>
           <FormLabel>Alias</FormLabel>
           <Input
             type="text"
@@ -67,6 +77,7 @@ const ProjectForm = ({ id = -1, onAdd, onCancel }) => {
             value={formData.alias}
             onChange={handleInputChange}
           />
+          <FormErrorMessage>{errors?.alias}</FormErrorMessage>
         </FormControl>
         <FormControl>
           <FormLabel>Description</FormLabel>
