@@ -1,15 +1,18 @@
 import {
   Button,
   FormControl,
+  FormErrorMessage,
   FormLabel,
   HStack,
   Input,
+  Select,
   Spacer,
   Stack,
 } from "@chakra-ui/react";
 import { useEffect, useRef, useState } from "react";
 import mockApi from "../../utils/mockApi";
 import PropTypes from "prop-types";
+import { validateResource } from "../../utils/validator";
 
 const initialData = {
   firstName: "",
@@ -18,8 +21,15 @@ const initialData = {
   type: "",
 };
 
+const typeOptions = [
+  { label: "Project Manager", value: "PM" },
+  { label: "Quality Assurance", value: "QA" },
+  { label: "Developer", value: "DEV" },
+];
+
 const ResourceForm = ({ id = "add", onAdd, onCancel }) => {
   const [formData, setFormData] = useState(initialData);
+  const [errors, setErrors] = useState({});
   const fetched = useRef("add");
 
   const handleInputChange = (e) => {
@@ -29,7 +39,13 @@ const ResourceForm = ({ id = "add", onAdd, onCancel }) => {
 
   const handleAdd = (e) => {
     e.preventDefault();
-    onAdd(formData);
+    const validate = validateResource(formData);
+    if (validate.isValid) {
+      onAdd(formData);
+      setErrors({});
+    } else {
+      setErrors(validate.errors);
+    }
   };
 
   const handleCancel = () => {
@@ -50,7 +66,7 @@ const ResourceForm = ({ id = "add", onAdd, onCancel }) => {
   return (
     <form onSubmit={handleAdd}>
       <Stack>
-        <FormControl>
+        <FormControl isRequired isInvalid={errors?.firstName}>
           <FormLabel>First Name</FormLabel>
           <Input
             type="text"
@@ -58,6 +74,7 @@ const ResourceForm = ({ id = "add", onAdd, onCancel }) => {
             value={formData.firstName}
             onChange={handleInputChange}
           />
+          <FormErrorMessage>{errors?.firstName}</FormErrorMessage>
         </FormControl>
         <FormControl>
           <FormLabel>Middle Name</FormLabel>
@@ -68,7 +85,7 @@ const ResourceForm = ({ id = "add", onAdd, onCancel }) => {
             onChange={handleInputChange}
           />
         </FormControl>
-        <FormControl>
+        <FormControl isRequired isInvalid={errors?.lastName}>
           <FormLabel>Last Name</FormLabel>
           <Input
             type="text"
@@ -76,15 +93,23 @@ const ResourceForm = ({ id = "add", onAdd, onCancel }) => {
             value={formData.lastName}
             onChange={handleInputChange}
           />
+          <FormErrorMessage>{errors?.lastName}</FormErrorMessage>
         </FormControl>
-        <FormControl>
+        <FormControl isRequired isInvalid={errors?.type}>
           <FormLabel>Type</FormLabel>
-          <Input
-            type="text"
+          <Select
+            placeholder="Select Resource Type"
             name="type"
             value={formData.type}
             onChange={handleInputChange}
-          />
+          >
+            {typeOptions.map((type, typeIndex) => (
+              <option key={`typeOption-${typeIndex}`} value={type.value}>
+                {type.label}
+              </option>
+            ))}
+          </Select>
+          <FormErrorMessage>{errors?.type}</FormErrorMessage>
         </FormControl>
         <HStack spacing={4}>
           <Spacer />
