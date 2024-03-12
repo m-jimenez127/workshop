@@ -19,4 +19,26 @@ const validateResource = (data) => {
   return retData;
 };
 
-export { validateResource };
+const validateProject = (data) => {
+  const retData = { isValid: true, errors: {} };
+
+  if (data?.name?.length < 1) {
+    retData.isValid = false;
+    retData.errors.name = "Project Name is required.";
+  }
+
+  if (data?.alias?.length < 1) {
+    retData.isValid = false;
+    retData.errors.alias = "Alias is required.";
+  }
+
+  const aliasRegex = /^\S+$/;
+  if (!aliasRegex.test(data.alias)) {
+    retData.isValid = false;
+    retData.errors.alias = "Alias should not contain any spaces.";
+  }
+
+  return retData;
+};
+
+export { validateResource, validateProject };
