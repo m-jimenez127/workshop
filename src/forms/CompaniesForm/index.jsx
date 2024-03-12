@@ -1,6 +1,7 @@
 import {
   Button,
   FormControl,
+  FormErrorMessage,
   FormLabel,
   HStack,
   Input,
@@ -10,6 +11,7 @@ import {
 import PropTypes from "prop-types";
 import { useEffect, useRef, useState } from "react";
 import mockApi from "../../utils/mockApi";
+import { validateCompany } from "../../utils/validator";
 
 const initialData = {
   name: "",
@@ -21,6 +23,7 @@ const initialData = {
 
 const CompaniesForm = ({ id = -1, onAdd, onCancel }) => {
   const [formData, setFormData] = useState(initialData);
+  const [errors, setErrors] = useState({});
   const fetched = useRef(-1);
 
   const handleInputChange = (e) => {
@@ -30,7 +33,13 @@ const CompaniesForm = ({ id = -1, onAdd, onCancel }) => {
 
   const handleAdd = (e) => {
     e.preventDefault();
-    onAdd(formData);
+    const validate = validateCompany(formData);
+    if (validate.isValid) {
+      onAdd(formData);
+      setErrors({});
+    } else {
+      setErrors(validate.errors);
+    }
   };
 
   const handleCancel = () => {
@@ -51,7 +60,7 @@ const CompaniesForm = ({ id = -1, onAdd, onCancel }) => {
   return (
     <form onSubmit={handleAdd}>
       <Stack>
-        <FormControl>
+        <FormControl isRequired isInvalid={errors?.name}>
           <FormLabel>Name</FormLabel>
           <Input
             type="text"
@@ -59,8 +68,9 @@ const CompaniesForm = ({ id = -1, onAdd, onCancel }) => {
             value={formData.name}
             onChange={handleInputChange}
           />
+          <FormErrorMessage>{errors?.name}</FormErrorMessage>
         </FormControl>
-        <FormControl>
+        <FormControl isRequired isInvalid={errors?.address}>
           <FormLabel>Address</FormLabel>
           <Input
             type="text"
@@ -68,8 +78,9 @@ const CompaniesForm = ({ id = -1, onAdd, onCancel }) => {
             value={formData.address}
             onChange={handleInputChange}
           />
+          <FormErrorMessage>{errors?.address}</FormErrorMessage>
         </FormControl>
-        <FormControl>
+        <FormControl isRequired isInvalid={errors?.contactPerson}>
           <FormLabel>Contact Person</FormLabel>
           <Input
             type="text"
@@ -77,8 +88,9 @@ const CompaniesForm = ({ id = -1, onAdd, onCancel }) => {
             value={formData.contactPerson}
             onChange={handleInputChange}
           />
+          <FormErrorMessage>{errors?.contactPerson}</FormErrorMessage>
         </FormControl>
-        <FormControl>
+        <FormControl isRequired isInvalid={errors?.email}>
           <FormLabel>Email</FormLabel>
           <Input
             type="text"
@@ -86,8 +98,9 @@ const CompaniesForm = ({ id = -1, onAdd, onCancel }) => {
             value={formData.email}
             onChange={handleInputChange}
           />
+          <FormErrorMessage>{errors?.email}</FormErrorMessage>
         </FormControl>
-        <FormControl>
+        <FormControl isRequired isInvalid={errors?.contactNumber}>
           <FormLabel>Contact Number</FormLabel>
           <Input
             type="text"
@@ -95,6 +108,7 @@ const CompaniesForm = ({ id = -1, onAdd, onCancel }) => {
             value={formData.contactNumber}
             onChange={handleInputChange}
           />
+          <FormErrorMessage>{errors?.contactNumber}</FormErrorMessage>
         </FormControl>
         <HStack spacing={4}>
           <Spacer />
