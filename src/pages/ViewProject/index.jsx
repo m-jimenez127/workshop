@@ -25,8 +25,13 @@ const ViewProject = () => {
     }
     const requestData = mockApi(method, endpoint, data);
     const { status = false, data: newData = null } = requestData;
-    if (status && !(data?.id > -1)) {
-      navigate(`/project/${newData?.id}`);
+    if (status) {
+      if (!(data?.id > -1)) {
+        navigate(`/project/${newData?.id}`);
+        alert("Project was added successfully!");
+      } else {
+        alert("Project was updated successfully!");
+      }
     }
   };
 
@@ -35,6 +40,7 @@ const ViewProject = () => {
     const { status = false } = requestData;
     if (status) {
       navigate("/projects");
+      alert("Project was deleted successfully!");
     }
   };
 
