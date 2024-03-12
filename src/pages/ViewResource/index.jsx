@@ -25,13 +25,19 @@ const ViewResource = () => {
     }
     const requestData = mockApi(method, endpoint, data);
     const { status = false, data: newData = {} } = requestData;
-    if (status && !(data?.id > -1)) {
-      navigate(`/resource/${newData?.id}`);
+    if (status) {
+      if (!(data?.id > -1)) {
+        navigate(`/resource/${newData?.id}`);
+        alert("Resource was added successfully!");
+      } else {
+        alert("Resource was updated successfully!");
+      }
     }
   };
 
   const handleDeleteResource = () => {
     mockApi("DELETE", `/resources/${id}`);
+    alert("Resource was deleted successfully!");
     navigate("/resources");
   };
 
