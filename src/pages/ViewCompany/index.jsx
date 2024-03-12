@@ -25,8 +25,13 @@ const ViewCompany = () => {
     }
     const requestData = mockApi(method, endpoint, data);
     const { status = false, data: newData = null } = requestData;
-    if (status && !(data?.id > -1)) {
-      navigate(`/company/${newData?.id}`);
+    if (status) {
+      if (!(data?.id > -1)) {
+        navigate(`/company/${newData?.id}`);
+        alert("Company was added successfully!");
+      } else {
+        alert("Company was updated successfully!");
+      }
     }
   };
 
@@ -35,6 +40,7 @@ const ViewCompany = () => {
     const { status = false } = requestData;
     if (status) {
       navigate("/companies");
+      alert("Company was deleted successfully!");
     }
   };
 
