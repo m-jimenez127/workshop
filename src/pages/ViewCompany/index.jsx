@@ -11,6 +11,7 @@ import {
 import CompaniesForm from "../../forms/CompaniesForm";
 import mockApi from "../../utils/mockApi";
 import { useNavigate, useParams } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const ViewCompany = () => {
   const navigate = useNavigate();
@@ -28,9 +29,17 @@ const ViewCompany = () => {
     if (status) {
       if (!(data?.id > -1)) {
         navigate(`/company/${newData?.id}`);
-        alert("Company was added successfully!");
+        Swal.fire({
+          title: "Company was added successfully!",
+          confirmButtonText: "Okay!",
+          icon: "success",
+        });
       } else {
-        alert("Company was updated successfully!");
+        Swal.fire({
+          title: "Company was updated successfully!",
+          confirmButtonText: "Okay!",
+          icon: "success",
+        });
       }
     }
   };
@@ -40,7 +49,11 @@ const ViewCompany = () => {
     const { status = false } = requestData;
     if (status) {
       navigate("/companies");
-      alert("Company was deleted successfully!");
+      Swal.fire({
+        title: "Company was deleted successfully!",
+        confirmButtonText: "Okay!",
+        icon: "success",
+      });
     }
   };
 

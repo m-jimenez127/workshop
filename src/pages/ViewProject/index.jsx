@@ -11,6 +11,7 @@ import {
 import ProjectForm from "../../forms/ProjectForm";
 import mockApi from "../../utils/mockApi";
 import { useNavigate, useParams } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const ViewProject = () => {
   const navigate = useNavigate();
@@ -28,9 +29,17 @@ const ViewProject = () => {
     if (status) {
       if (!(data?.id > -1)) {
         navigate(`/project/${newData?.id}`);
-        alert("Project was added successfully!");
+        Swal.fire({
+          title: "Project was added successfully!",
+          confirmButtonText: "Okay!",
+          icon: "success",
+        });
       } else {
-        alert("Project was updated successfully!");
+        Swal.fire({
+          title: "Project was updated successfully!",
+          confirmButtonText: "Okay!",
+          icon: "success",
+        });
       }
     }
   };
@@ -40,7 +49,11 @@ const ViewProject = () => {
     const { status = false } = requestData;
     if (status) {
       navigate("/projects");
-      alert("Project was deleted successfully!");
+      Swal.fire({
+        title: "Project was deleted successfully!",
+        confirmButtonText: "Okay!",
+        icon: "success",
+      });
     }
   };
 

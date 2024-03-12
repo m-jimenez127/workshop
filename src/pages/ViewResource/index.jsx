@@ -11,6 +11,7 @@ import {
 import { useNavigate, useParams } from "react-router-dom";
 import ResourceForm from "../../forms/ResourceForm";
 import mockApi from "../../utils/mockApi";
+import Swal from "sweetalert2";
 
 const ViewResource = () => {
   const navigate = useNavigate();
@@ -28,16 +29,28 @@ const ViewResource = () => {
     if (status) {
       if (!(data?.id > -1)) {
         navigate(`/resource/${newData?.id}`);
-        alert("Resource was added successfully!");
+        Swal.fire({
+          title: "Resource was added successfully!",
+          confirmButtonText: "Okay!",
+          icon: "success",
+        });
       } else {
-        alert("Resource was updated successfully!");
+        Swal.fire({
+          title: "Resource was updated successfully!",
+          confirmButtonText: "Okay!",
+          icon: "success",
+        });
       }
     }
   };
 
   const handleDeleteResource = () => {
     mockApi("DELETE", `/resources/${id}`);
-    alert("Resource was deleted successfully!");
+    Swal.fire({
+      title: "Resource was deleted successfully!",
+      confirmButtonText: "Okay!",
+      icon: "success",
+    });
     navigate("/resources");
   };
 
