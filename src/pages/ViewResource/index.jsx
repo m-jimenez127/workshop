@@ -45,13 +45,26 @@ const ViewResource = () => {
   };
 
   const handleDeleteResource = () => {
-    mockApi("DELETE", `/resources/${id}`);
     Swal.fire({
-      title: "Resource was deleted successfully!",
-      confirmButtonText: "Okay!",
-      icon: "success",
+      title: "You are about to delete this Resource",
+      html: "Upon deleting this resource, you can no longer utilize this resource for any project. Any existing projects utilizing this resource will still have their name listed unless removed from the project.<br/><br/>Are you sure you want to delete this Resource?",
+      confirmButtonText: "Yes, Delete",
+      confirmButtonColor: "red",
+      showCancelButton: true,
+      cancelButtonText: "Go Back",
+      reverseButtons: true,
+      icon: "warning",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        mockApi("DELETE", `/resources/${id}`);
+        Swal.fire({
+          title: "Resource was deleted successfully!",
+          confirmButtonText: "Okay!",
+          icon: "success",
+        });
+        navigate("/resources");
+      }
     });
-    navigate("/resources");
   };
 
   const handleCancel = () => {

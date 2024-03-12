@@ -45,16 +45,29 @@ const ViewCompany = () => {
   };
 
   const handleDeleteCompany = () => {
-    const requestData = mockApi("DELETE", `/companies/${id}`);
-    const { status = false } = requestData;
-    if (status) {
-      navigate("/companies");
-      Swal.fire({
-        title: "Company was deleted successfully!",
-        confirmButtonText: "Okay!",
-        icon: "success",
-      });
-    }
+    Swal.fire({
+      title: "You are about to delete this Company",
+      html: "Upon deleting this companyt, you can no longer create any requests from this Company. Any existing requests from this Company will be tagged as Invalid.<br/><br/>Are you sure you want to delete this Project?",
+      confirmButtonText: "Yes, Delete",
+      confirmButtonColor: "red",
+      showCancelButton: true,
+      cancelButtonText: "Go Back",
+      reverseButtons: true,
+      icon: "warning",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const requestData = mockApi("DELETE", `/companies/${id}`);
+        const { status = false } = requestData;
+        if (status) {
+          navigate("/companies");
+          Swal.fire({
+            title: "Company was deleted successfully!",
+            confirmButtonText: "Okay!",
+            icon: "success",
+          });
+        }
+      }
+    });
   };
 
   const handleCancel = () => {
