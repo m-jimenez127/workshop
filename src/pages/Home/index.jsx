@@ -8,7 +8,10 @@ const Home = () => {
         <Text>Hello World!</Text>
       </Center>
       <Center>
-        <Button onClick={() => mockApi("POST", "/reset-data")}>
+        <Button
+          data-test-id="reset-data"
+          onClick={() => mockApi("POST", "/reset-data")}
+        >
           Reset Data
         </Button>
       </Center>
