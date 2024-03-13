@@ -8,7 +8,12 @@ const Header = () => {
         Resources
       </Heading>
       <Spacer />
-      <Button as={Link} to="/resource/add" colorScheme="green">
+      <Button
+        as={Link}
+        to="/resource/add"
+        colorScheme="green"
+        data-test-id="add-resource"
+      >
         Add Resource
       </Button>
     </HStack>

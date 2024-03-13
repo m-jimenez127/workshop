@@ -5,7 +5,6 @@ import {
   FormLabel,
   HStack,
   Input,
-  Select,
   Spacer,
   Stack,
 } from "@chakra-ui/react";
@@ -20,12 +19,6 @@ const initialData = {
   lastName: "",
   type: "",
 };
-
-const typeOptions = [
-  { label: "Project Manager", value: "PM" },
-  { label: "Quality Assurance", value: "QA" },
-  { label: "Developer", value: "DEV" },
-];
 
 const ResourceForm = ({ id = "add", onAdd, onCancel }) => {
   const [formData, setFormData] = useState(initialData);
@@ -64,7 +57,7 @@ const ResourceForm = ({ id = "add", onAdd, onCancel }) => {
   }, [id]);
 
   return (
-    <form onSubmit={handleAdd}>
+    <form data-test-id="resource-form" onSubmit={handleAdd}>
       <Stack>
         <FormControl isRequired isInvalid={errors?.firstName}>
           <FormLabel>First Name</FormLabel>
@@ -97,26 +90,28 @@ const ResourceForm = ({ id = "add", onAdd, onCancel }) => {
         </FormControl>
         <FormControl isRequired isInvalid={errors?.type}>
           <FormLabel>Type</FormLabel>
-          <Select
-            placeholder="Select Resource Type"
+          <Input
+            type="text"
             name="type"
             value={formData.type}
             onChange={handleInputChange}
-          >
-            {typeOptions.map((type, typeIndex) => (
-              <option key={`typeOption-${typeIndex}`} value={type.value}>
-                {type.label}
-              </option>
-            ))}
-          </Select>
+          />
           <FormErrorMessage>{errors?.type}</FormErrorMessage>
         </FormControl>
         <HStack spacing={4}>
           <Spacer />
-          <Button type="button" onClick={handleCancel}>
+          <Button
+            data-test-id="resource-form-cancel"
+            type="button"
+            onClick={handleCancel}
+          >
             Cancel
           </Button>
-          <Button type="submit" colorScheme="green">
+          <Button
+            data-test-id="resource-form-submit"
+            type="submit"
+            colorScheme="green"
+          >
             {`${id === "add" ? `Add` : `Update`} Resource`}
           </Button>
         </HStack>

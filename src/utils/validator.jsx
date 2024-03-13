@@ -13,7 +13,13 @@ const validateResource = (data) => {
 
   if (data?.type?.length < 1) {
     retData.isValid = false;
-    retData.errors.type = "Type is required.";
+    retData.errors.type = "Resource Type is required.";
+  } else {
+    if (!["DEV", "QA", "PM"].includes(data?.type)) {
+      retData.isValid = false;
+      retData.errors.type =
+        "Please select a valid Resource Type (PM, QA, or DEV).";
+    }
   }
 
   return retData;
