@@ -13,8 +13,8 @@ import PropTypes from "prop-types";
 
 const Projects = ({ data = [] }) => {
   return (
-    <Box w="container.md" mx="auto">
-      <SimpleGrid columns={2} gap={4} w="full">
+    <Box w="full" maxW="container.md" mx="auto">
+      <SimpleGrid columns={[1, 1, 2]} gap={4} w="full">
         {data?.length > 0 &&
           data.map((project = {}, projectIndex) => {
             return (
