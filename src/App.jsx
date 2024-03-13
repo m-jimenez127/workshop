@@ -1,4 +1,4 @@
-import { Box, ChakraProvider, Flex } from "@chakra-ui/react";
+import { ChakraProvider, Grid, GridItem } from "@chakra-ui/react";
 import { Outlet } from "react-router-dom";
 import theme from "./theme";
 import SideNav from "./components/SideNav";
@@ -6,12 +6,22 @@ import SideNav from "./components/SideNav";
 function App() {
   return (
     <ChakraProvider theme={theme}>
-      <Flex>
-        <SideNav />
-        <Box flexGrow={1}>
+      <Grid
+        w="full"
+        templateAreas={{
+          base: ` "sidenav"
+                  "content"`,
+          md: `"sidenav content"`,
+        }}
+        gridTemplateColumns={{ base: "1fr", md: "200px 1fr" }}
+      >
+        <GridItem area="sidenav">
+          <SideNav />
+        </GridItem>
+        <GridItem area="content">
           <Outlet />
-        </Box>
-      </Flex>
+        </GridItem>
+      </Grid>
     </ChakraProvider>
   );
 }

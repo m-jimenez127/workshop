@@ -7,8 +7,11 @@ const SideNav = () => {
   const { pathname } = location;
 
   return (
-    <Container w={36}>
-      <Stack>
+    <Container mb={8}>
+      <Stack
+        flexDirection={["row", "row", "column"]}
+        justifyContent={["center", "center", "flex-start"]}
+      >
         {navRoutes.map((nav, navIndex) => (
           <Box key={`navigation-${navIndex}`}>
             <ChakraLink
