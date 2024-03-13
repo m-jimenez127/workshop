@@ -10,12 +10,18 @@ import {
   CardBody,
   LinkBox,
   LinkOverlay,
+  useToken,
 } from "@chakra-ui/react";
 import PropTypes from "prop-types";
 
 const Companies = ({ data = [] }) => {
+  const [paddingSize] = useToken("sizes", [4]);
   return (
-    <Card w="full" maxW="container.md" mx="auto">
+    <Card
+      w="full"
+      maxW={{ base: `calc(100vw - ${paddingSize})`, md: "container.md" }}
+      mx="auto"
+    >
       <CardBody pt={0} px={0}>
         <TableContainer>
           <Table>

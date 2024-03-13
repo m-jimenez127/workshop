@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
-    <HStack w="container.md" mx="auto">
+    <HStack w="full" maxW="container.md" mx="auto">
       <Heading size="md" textAlign="center">
         Companies
       </Heading>
