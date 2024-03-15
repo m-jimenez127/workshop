@@ -86,4 +86,20 @@ const validateCompany = (data) => {
   return retData;
 };
 
-export { validateResource, validateProject, validateCompany };
+const validateRequest = (data) => {
+  const retData = { isValid: true, errors: {} };
+
+  if (data?.subject?.length < 1) {
+    retData.isValid = false;
+    retData.errors.name = "Request Subject is required.";
+  }
+
+  if (data?.description?.length < 1) {
+    retData.isValid = false;
+    retData.errors.name = "Request Description is required.";
+  }
+
+  return retData;
+};
+
+export { validateResource, validateProject, validateCompany, validateRequest };

@@ -7,18 +7,16 @@ import Swal from "sweetalert2";
 const initialData = {
   isEditing: false,
   data: {
-    name: "",
-    address: "",
-    contactPerson: "",
-    email: "",
-    contactNumber: "",
+    subject: "",
+    description: "",
+    client: {},
+    project: {},
   },
   formData: {
-    name: "",
-    address: "",
-    contactPerson: "",
-    email: "",
-    contactNumber: "",
+    subject: "",
+    description: "",
+    client: {},
+    project: {},
   },
 };
 
@@ -43,33 +41,33 @@ const reducer = (state, action) => {
   }
 };
 
-export const CompanyContext = createContext("default");
+export const RequestContext = createContext("default");
 
-const CompanyProvider = ({ id = "add", children }) => {
+const RequestProvider = ({ id = "add", children }) => {
   const navigate = useNavigate();
   const [state, dispatch] = useReducer(reducer, initialData);
   const fetched = useRef(-1);
 
-  const handleAddCompany = (data) => {
+  const handleAddRequest = (data) => {
     let method = "POST";
-    let endpoint = `/companies`;
+    let endpoint = `/requests`;
     if (data?.id > -1) {
       method = "PUT";
-      endpoint = `/companies/${data?.id}`;
+      endpoint = `/requests/${data?.id}`;
     }
     const requestData = mockApi(method, endpoint, data);
     const { status = false, data: newData = null } = requestData;
     if (status) {
       if (!(data?.id > -1)) {
-        navigate(`/company/${newData?.id}`);
+        navigate(`/request/${newData?.id}`);
         Swal.fire({
-          title: "Company was added successfully!",
+          title: "Request was added successfully!",
           confirmButtonText: "Okay!",
           icon: "success",
         });
       } else {
         Swal.fire({
-          title: "Company was updated successfully!",
+          title: "Request was updated successfully!",
           confirmButtonText: "Okay!",
           icon: "success",
         });
@@ -79,10 +77,10 @@ const CompanyProvider = ({ id = "add", children }) => {
     }
   };
 
-  const handleDeleteCompany = () => {
+  const handleDeleteRequest = () => {
     Swal.fire({
-      title: "You are about to delete this Company",
-      html: "Upon deleting this companyt, you can no longer create any requests from this Company. Any existing requests from this Company will be tagged as Invalid.<br/><br/>Are you sure you want to delete this Project?",
+      title: "You are about to delete this Request",
+      html: "Upon deleting this requestt, you can no longer create any requests from this Request. Any existing requests from this Request will be tagged as Invalid.<br/><br/>Are you sure you want to delete this Project?",
       confirmButtonText: "Yes, Delete",
       confirmButtonColor: "red",
       showCancelButton: true,
@@ -91,12 +89,12 @@ const CompanyProvider = ({ id = "add", children }) => {
       icon: "warning",
     }).then((result) => {
       if (result.isConfirmed) {
-        const requestData = mockApi("DELETE", `/companies/${id}`);
+        const requestData = mockApi("DELETE", `/requests/${id}`);
         const { status = false } = requestData;
         if (status) {
-          navigate("/companies");
+          navigate("/requests");
           Swal.fire({
-            title: "Company was deleted successfully!",
+            title: "Request was deleted successfully!",
             confirmButtonText: "Okay!",
             icon: "success",
           });
@@ -107,7 +105,7 @@ const CompanyProvider = ({ id = "add", children }) => {
 
   const handleCancel = () => {
     if (id === "add") {
-      navigate("/companies");
+      navigate("/requests");
     }
     dispatch({ type: "SET_EDIT", isEditing: false });
     dispatch({ type: "RESET_DATA" });
@@ -119,7 +117,7 @@ const CompanyProvider = ({ id = "add", children }) => {
       return;
     }
     if (fetched.current === id) return;
-    const requestData = mockApi("GET", `/companies/${id}`);
+    const requestData = mockApi("GET", `/requests/${id}`);
     const { status = false, data = null } = requestData;
     if (status) {
       fetched.current = id;
@@ -128,24 +126,24 @@ const CompanyProvider = ({ id = "add", children }) => {
   }, [id]);
 
   return (
-    <CompanyContext.Provider
+    <RequestContext.Provider
       value={{
         id,
         ...state,
         dispatch,
-        handleAddCompany,
-        handleDeleteCompany,
+        handleAddRequest,
+        handleDeleteRequest,
         handleCancel,
       }}
     >
       {children}
-    </CompanyContext.Provider>
+    </RequestContext.Provider>
   );
 };
 
-CompanyProvider.propTypes = {
+RequestProvider.propTypes = {
   id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   children: PropTypes.any,
 };
 
-export default CompanyProvider;
+export default RequestProvider;
