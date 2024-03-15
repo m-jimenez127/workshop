@@ -88,10 +88,16 @@ const validateCompany = (data) => {
 
 const validateRequest = (data) => {
   const retData = { isValid: true, errors: {} };
+  console.log({ data });
 
-  if (["", undefined, null].includes(data?.client?.id)) {
+  if (["", undefined, null, -1].includes(data?.client?.id)) {
     retData.isValid = false;
     retData.errors.client = "Client is required.";
+  }
+
+  if (["", undefined, null, -1].includes(data?.project?.id)) {
+    retData.isValid = false;
+    retData.errors.project = "Project is required.";
   }
 
   if (data?.subject?.length < 1) {

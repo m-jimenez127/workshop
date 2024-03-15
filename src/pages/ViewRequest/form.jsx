@@ -5,6 +5,7 @@ import { validateRequest } from "../../utils/validator";
 import Actions from "./actions";
 import Details from "./details";
 import Client from "./client";
+import Project from "./project";
 
 const RequestForm = () => {
   const { formData = {}, dispatch, handleAddRequest: onAdd } = useRequest();
@@ -32,6 +33,8 @@ const RequestForm = () => {
         <CardBody>
           <Stack>
             <Client errors={errors} handleInputChange={handleInputChange} />
+            <Divider my={4} />
+            <Project errors={errors} handleInputChange={handleInputChange} />
             <Divider my={4} />
             <Details errors={errors} handleInputChange={handleInputChange} />
           </Stack>

@@ -34,7 +34,9 @@ const Requests = ({ data = [] }) => {
                     >
                       {request?.subject}
                     </Heading>
-                    <Text opacity={0.5}>{request?.client?.name}</Text>
+                    <Text opacity={0.5}>
+                      {request?.client?.name} &middot; {request?.project?.name}
+                    </Text>
                     <Text>{request?.description}</Text>
                   </Stack>
                 </CardBody>
