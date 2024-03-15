@@ -89,14 +89,19 @@ const validateCompany = (data) => {
 const validateRequest = (data) => {
   const retData = { isValid: true, errors: {} };
 
+  if (["", undefined, null].includes(data?.client?.id)) {
+    retData.isValid = false;
+    retData.errors.client = "Client is required.";
+  }
+
   if (data?.subject?.length < 1) {
     retData.isValid = false;
-    retData.errors.name = "Request Subject is required.";
+    retData.errors.subject = "Request Subject is required.";
   }
 
   if (data?.description?.length < 1) {
     retData.isValid = false;
-    retData.errors.name = "Request Description is required.";
+    retData.errors.description = "Request Description is required.";
   }
 
   return retData;

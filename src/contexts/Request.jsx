@@ -9,14 +9,14 @@ const initialData = {
   data: {
     subject: "",
     description: "",
-    client: {},
-    project: {},
+    client: { id: -1 },
+    project: { id: -1 },
   },
   formData: {
     subject: "",
     description: "",
-    client: {},
-    project: {},
+    client: { id: -1 },
+    project: { id: -1 },
   },
 };
 
