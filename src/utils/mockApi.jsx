@@ -371,8 +371,8 @@ const mockApi = (method, endpoint, data = null) => {
           const requestId = parseInt(deleteEndpoint[2], 10);
           const index = requests.findIndex((item) => item.id === requestId);
           if (index !== -1) {
-            companies[index].isDeleted = true;
-            const deletedRequest = companies[index];
+            requests[index].isDeleted = true;
+            const deletedRequest = requests[index];
             result.status = true;
             result.data = deletedRequest;
             updateLocalStorage();
